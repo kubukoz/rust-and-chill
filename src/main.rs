@@ -3,6 +3,11 @@ use std::io;
 use rand::{thread_rng, Rng};
 
 fn main() {
+    /// Just for fn
+    fn parse_i32(guess: String) -> Option<i32> {
+        return guess.trim().parse::<i32>().ok();
+    }
+
     println!("Guess the number!");
     let secret_number = thread_rng().gen_range(1..101);
 
@@ -17,9 +22,9 @@ fn main() {
             .read_line(&mut guess)
             .expect("Failed to read line");
 
-        let guess: u32 = match guess.trim().parse() {
-            Ok(v) => v,
-            Err(_) => continue,
+        let guess = match parse_i32(guess) {
+            Some(value) => value,
+            None => continue,
         };
 
         println!("You guessed: {}", guess);
